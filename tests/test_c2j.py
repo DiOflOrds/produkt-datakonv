@@ -79,8 +79,8 @@ class IndentTest(unittest.TestCase):
 
     def test_custom_indent_width(self):
         """indent=n pretty-prints with n spaces; default stays 2. Verifiziert: SWR-D18."""
-        self.assertIn('\n    "a"', csv_to_json("a\n1\n", indent=4))
-        self.assertIn('\n  "a"', csv_to_json("a\n1\n"))
+        self.assertIn('\n        "a"', csv_to_json("a\n1\n", indent=4))  # 2 Ebenen à 4
+        self.assertIn('\n    "a"', csv_to_json("a\n1\n"))  # Default: 2 Ebenen à 2
 
 
 class DeterminismTest(unittest.TestCase):
