@@ -76,6 +76,14 @@ class DelimiterTest(unittest.TestCase):
                          stdin_text='[{"a": 1, "b": 2}]')
         self.assertEqual((rc, out), (0, "a;b\n1;2\n"))
 
+    def test_indent_option_end_to_end(self):
+        """--indent 0 yields compact output; invalid values exit 2. Verifiziert: SWR-D18."""
+        rc, out, _ = run(["--to", "json", "--indent", "0"], stdin_text="a\n1\n")
+        self.assertEqual((rc, out), (0, '[{"a":1}]\n'))
+        rc, _, err = run(["--to", "json", "--indent", "9"], stdin_text="a\n1\n")
+        self.assertEqual(rc, 2)
+        self.assertIn("--indent", err)
+
     def test_multichar_delimiter_is_usage_error(self):
         """A multi-character delimiter exits 2. Verifiziert: SWR-D03."""
         rc, _, err = run(["--to", "json", "--delimiter", ";;"], stdin_text="a\n1\n")

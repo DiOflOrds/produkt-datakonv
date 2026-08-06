@@ -25,8 +25,8 @@ def _type_value(field):
     return field
 
 
-def csv_to_json(text, delimiter=","):
-    """Convert CSV text to a JSON array-of-objects string (SWR-D05..D09)."""
+def csv_to_json(text, delimiter=",", indent=2):
+    """Convert CSV text to a JSON array-of-objects string (SWR-D05..D09, SWR-D18)."""
     records = list(csv.reader(io.StringIO(text, newline=""), delimiter=delimiter))
     if not records:
         raise DataError("empty input: missing CSV header record")
@@ -44,4 +44,6 @@ def csv_to_json(text, delimiter=","):
             raise DataError(f"record {nr}: {len(record)} field(s), "
                             f"expected {len(header)} (header)")
         objects.append({k: _type_value(v) for k, v in zip(header, record)})
-    return json.dumps(objects, ensure_ascii=False, indent=2) + "\n"
+    if indent == 0:  # compact single line (SWR-D18)
+        return json.dumps(objects, ensure_ascii=False, separators=(",", ":")) + "\n"
+    return json.dumps(objects, ensure_ascii=False, indent=indent) + "\n"

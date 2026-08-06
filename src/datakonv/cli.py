@@ -24,6 +24,8 @@ def _parser():
     p.add_argument("--out", help="output file path (default: stdout)")
     p.add_argument("--delimiter", default=",",
                    help="CSV delimiter, single character (default: ',')")
+    p.add_argument("--indent", type=int, default=2,
+                   help="JSON output indent 0-8; 0 = compact single line (default: 2)")
     p.add_argument("--version", action="version", version=f"datakonv {__version__}")
     return p
 
@@ -66,8 +68,10 @@ def _run(argv):
     if len(args.delimiter) != 1:
         raise UsageError(f"--delimiter must be a single character, "
                          f"got {args.delimiter!r}")
+    if not 0 <= args.indent <= 8:  # SWR-D18
+        raise UsageError(f"--indent must be between 0 and 8, got {args.indent}")
     text = _read_input(args.input)
-    result = csv_to_json(text, args.delimiter) if args.target == "json" \
+    result = csv_to_json(text, args.delimiter, args.indent) if args.target == "json" \
         else json_to_csv(text, args.delimiter)
     _write_output(result, args.out)
     return EXIT_OK

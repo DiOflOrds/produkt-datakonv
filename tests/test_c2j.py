@@ -71,6 +71,18 @@ class ErrorTest(unittest.TestCase):
         self.assertIn("column 2", str(k.exception))
 
 
+class IndentTest(unittest.TestCase):
+    def test_compact_single_line(self):
+        """indent=0 produces compact single-line JSON. Verifiziert: SWR-D18."""
+        out = csv_to_json("a,b\n1,x\n", indent=0)
+        self.assertEqual(out, '[{"a":1,"b":"x"}]\n')
+
+    def test_custom_indent_width(self):
+        """indent=n pretty-prints with n spaces; default stays 2. Verifiziert: SWR-D18."""
+        self.assertIn('\n    "a"', csv_to_json("a\n1\n", indent=4))
+        self.assertIn('\n  "a"', csv_to_json("a\n1\n"))
+
+
 class DeterminismTest(unittest.TestCase):
     def test_double_run_byte_identical(self):
         """Identical input produces byte-identical output. Verifiziert: SWR-D16."""

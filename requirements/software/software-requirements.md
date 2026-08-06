@@ -1,4 +1,4 @@
-# Software Requirements — datakonv (v1, Sprint 4, T-0043)
+# Software Requirements — datakonv (v1.1, Sprint 5: SWR-D14 precision T-0053, SWR-D18 added T-0060; v1 Sprint 4, T-0043)
 
 *Derived from `../stakeholder/stakeholder-requirements.md`. Components: CLI = argument handling and I/O wiring, C2J = CSV→JSON conversion, J2C = JSON→CSV conversion, GEN = cross-cutting. Language: English (D011). Status `reviewed` = reviewed for feasibility (ARCH/DEV context) and verifiability (QM/TEST context) per DoD checklist; implementation follows requirements-first (T-0025).*
 
@@ -10,6 +10,7 @@
 | SWR-D02 | The CLI shall read input from a file path argument, or from stdin when the path is `-` or omitted; it shall write output to the file given by `--out <path>`, or to stdout when `--out` is omitted. | STK-D04 | Unit tests (file/stdin × file/stdout matrix) | high | reviewed |
 | SWR-D03 | The CLI shall accept `--delimiter <char>` (single character, default `,`) applied to CSV input and CSV output; a multi-character value shall produce a usage error (exit 2). | STK-D02 | Unit tests (delimiter variants, invalid value) | medium | reviewed |
 | SWR-D04 | The CLI shall support `--help` and `--version`, each exiting 0 after printing to stdout. | STK-D04 | Unit tests (flags) | low | reviewed |
+| SWR-D18 | The CLI shall accept `--indent <n>` (integer 0–8, default 2) for JSON output: n ≥ 1 produces pretty-printed output with n spaces, 0 produces compact single-line output; other values produce a usage error (exit 2). (CR T-0060 from human feedback T-0059, v1.1) | STK-D04 | Unit tests (indent variants, invalid values) + E2E | medium | reviewed |
 
 ## CSV → JSON (C2J)
 
@@ -46,7 +47,7 @@
 | STK-D01 | SWR-D01 |
 | STK-D02 | SWR-D03, SWR-D05, SWR-D06, SWR-D07, SWR-D11, SWR-D12, SWR-D14, SWR-D16, SWR-D17 |
 | STK-D03 | SWR-D01, SWR-D08, SWR-D09, SWR-D10, SWR-D13, SWR-D14, SWR-D15 |
-| STK-D04 | SWR-D02, SWR-D04, SWR-D15 |
+| STK-D04 | SWR-D02, SWR-D04, SWR-D15, SWR-D18 |
 | STK-D05 | SWR-D16, SWR-D17 (+ CI gate T-0042, matrix T-0046) |
 
-*17 SWRs, all STKs covered, no orphan SWRs. DoD checklist (`process/checklists/dod-sw-anforderung.md`) applied per SWR on 2026-08-06: atomic, testable, traced, verification named — QM/ARCH review contexts documented in T-0043.*
+*18 SWRs (v1.1), all STKs covered, no orphan SWRs. DoD checklist (`process/checklists/dod-sw-anforderung.md`) applied per SWR on 2026-08-06: atomic, testable, traced, verification named — QM/ARCH review contexts documented in T-0043.*
