@@ -40,7 +40,8 @@ def _read_input(path):
         except OSError as e:
             raise DataError(f"cannot read input: {e}")
     try:
-        return raw.decode("utf-8")
+        # utf-8-sig: strips a leading BOM (Excel exports) — T-0053, SWR-D14.
+        return raw.decode("utf-8-sig")
     except UnicodeDecodeError as e:
         raise DataError(f"input is not valid UTF-8: {e}")
 

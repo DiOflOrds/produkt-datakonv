@@ -34,7 +34,7 @@
 
 | ID | Requirement | Trace | Verification | Prio | Status |
 |---|---|---|---|---|---|
-| SWR-D14 | All input and output shall be UTF-8; input that is not valid UTF-8 shall produce a data error (exit 3). | STK-D02, STK-D03 | Unit tests (umlauts round-trip, invalid bytes) | medium | reviewed |
+| SWR-D14 | All input and output shall be UTF-8; a leading UTF-8 BOM on input shall be accepted and stripped (precision v1.1, problem T-0053); output shall never start with a BOM; input that is not valid UTF-8 shall produce a data error (exit 3). | STK-D02, STK-D03 | Unit tests (umlauts, invalid bytes, BOM strip) + E2E `test_e2e.py` | medium | reviewed |
 | SWR-D15 | Exit codes shall be exactly: 0 success, 2 usage error, 3 data/format error, 1 unexpected internal error; all diagnostics shall go to stderr and never to stdout. | STK-D03, STK-D04 | Unit tests (exit-code matrix, stream separation) | high | reviewed |
 | SWR-D16 | Identical input and options shall produce byte-identical output (deterministic conversion, stable ordering, no timestamps). | STK-D02, STK-D05 | Unit test (double-run comparison) | medium | reviewed |
 | SWR-D17 | A full round-trip CSV→JSON→CSV over typed flat data shall reproduce the original CSV byte-identically (given default options and normalized quoting). | STK-D02, STK-D05 | Unit test (round-trip property) | medium | reviewed |

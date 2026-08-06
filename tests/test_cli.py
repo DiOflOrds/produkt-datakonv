@@ -104,6 +104,12 @@ class EncodingTest(unittest.TestCase):
         self.assertEqual(rc, 0)
         self.assertIn("Köln", out)
 
+    def test_bom_input_is_stripped(self):
+        """A leading UTF-8 BOM is stripped; header keys stay clean (regression T-0053). Verifiziert: SWR-D14."""
+        rc, out, _ = run(["--to", "json"], stdin_bytes=b"\xef\xbb\xbfa\nx\n")
+        self.assertEqual(rc, 0)
+        self.assertIn('"a"', out)
+
     def test_invalid_utf8_is_data_error(self):
         """Input that is not valid UTF-8 exits 3. Verifiziert: SWR-D14, SWR-D15."""
         rc, out, err = run(["--to", "json"], stdin_bytes=b"a\n\xff\xfe\n")
