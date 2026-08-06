@@ -19,3 +19,7 @@
 - **G1c:** zurückweisen (Begründung bitte benennen)
 
 **Frist:** 2026-08-08 · **Default:** kein Default — blockiert T-0044–T-0046.
+
+---
+
+**Entscheidung (D018, via Session-Dialog, 2026-08-06): G1a — freigegeben.** Baseline `req-v1.0` getaggt; T-0044–T-0046 entblockt.
