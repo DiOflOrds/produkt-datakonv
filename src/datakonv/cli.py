@@ -92,3 +92,8 @@ def main(argv=None):
     except Exception as e:  # unexpected — never crash without a defined code
         print(f"datakonv: internal error: {e}", file=sys.stderr)
         return EXIT_INTERNAL
+
+
+def console():
+    """Console-script entry point (pyproject, SPL.2 release T-0057)."""
+    raise SystemExit(main())

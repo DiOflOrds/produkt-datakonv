@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "datakonv"
+version = "1.0.0"
+description = "CSV/JSON converter CLI (practice product of the ASPICE agent team, D016)"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+
+[project.scripts]
+datakonv = "datakonv.cli:console"
+
+[tool.setuptools.packages.find]
+where = ["src"]
