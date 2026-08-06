@@ -1,0 +1,15 @@
+# CI (T-0042): unit verification on every push/PR (SWE.4 gate from Sprint 4 on).
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Unit tests (stdlib only, no dependencies)
+        run: python -m unittest discover -s tests -v
